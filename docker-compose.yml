@@ -1,0 +1,40 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: upme-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: upme
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - ./scripts:/scripts:ro
+      - ./schema:/schema:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "-u", "root", "-p", "root",
+             "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: upme-mongo-express
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+    ports:
+      - "8081:8081"
+
+volumes:
+  mongo-data:
