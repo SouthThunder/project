@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sSL -o C:/Users/aleja/Desktop/universidad/project/data/raw/MunicipiosPDET.xlsx \"https://centralpdet.renovacionterritorio.gov.co/wp-content/uploads/2022/01/MunicipiosPDET.xlsx\")",
+      "Bash(python -m pip install --quiet ijson)",
+      "Bash(python scripts/validate_pdet.py)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import pymongo; print\\('pymongo', pymongo.__version__\\)\")",
+      "Bash(python -m pip install --quiet pymongo)",
+      "Bash(docker compose *)",
+      "Bash(python scripts/load_municipalities.py)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:sites.research.google)",
+      "Bash(curl -sSL -o data/raw/ms_buildings/dataset-links.csv \"https://minedbuildings.z5.web.core.windows.net/global-buildings/dataset-links.csv\")",
+      "WebSearch"
+    ]
+  }
+}

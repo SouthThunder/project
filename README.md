@@ -63,10 +63,24 @@ synthetic Tumaco municipality from both Microsoft and Google sources.
 | Week | Deliverable                                     | Status |
 | ---- | ----------------------------------------------- | ------ |
 | 1    | Schema, indexes, smoke test                     | done   |
-| 2    | Real DANE MGN PDET polygons loaded              | next   |
-| 3    | Real MS + Google buildings loaded for PDET area | todo   |
+| 2    | Real DANE MGN PDET polygons loaded              | done   |
+| 3    | Real MS + Google buildings loaded for PDET area | next   |
 | 4    | Reproducible analysis workflow + maps           | todo   |
 | 5    | Final technical report                          | todo   |
+
+## Week 2 deliverable
+
+> PDET Municipality Boundaries Dataset Integration.
+
+170 PDET polygons from DANE MGN 2025, joined against the official ART
+list (Decreto 893/2017), validated, projected for area, and loaded into
+`upme.municipalities`. Full write-up: [`docs/week2-pdet-loading.md`](docs/week2-pdet-loading.md).
+
+```bash
+# After `docker compose up -d` and init.js:
+python scripts/validate_pdet.py      # emits data/processed/pdet_municipios.geojson
+python scripts/load_municipalities.py # upserts 170 docs + runs sanity queries
+```
 
 ## Tear down
 

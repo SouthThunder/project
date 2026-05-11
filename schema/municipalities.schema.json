@@ -15,6 +15,7 @@
     "is_pdet":        { "type": "boolean", "description": "True if this municipality is one of the 170 PDET territories per Decreto 893/2017." },
     "area_sqkm":      { "type": "number", "minimum": 0, "description": "Polygon area in km2, computed in an equal-area projection at load time." },
     "source":         { "type": "string", "description": "Provenance, e.g., 'DANE MGN2025'." },
+    "subregion_pdet": { "type": ["string", "null"], "description": "ART PDET subregion name (one of 16). Null for non-PDET munis." },
     "loaded_at":      { "type": "string", "format": "date-time" },
     "geometry": {
       "type": "object",

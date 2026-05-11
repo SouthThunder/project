@@ -41,3 +41,49 @@ Para reproducir:
 2. Descomprimir y abrir `MGN_ADM_MPIO_GRAFICO.shp` en QGIS
 3. Exportar como GeoJSON (EPSG:4326) a `data/raw/municipios_colombia.geojson`
 
+---
+
+## Lista oficial de municipios PDET — ART
+
+| Campo             | Detalle                                                                 |
+|-------------------|-------------------------------------------------------------------------|
+| **Proveedor**     | Agencia de Renovación del Territorio (ART)                              |
+| **Nombre**        | MunicipiosPDET.xlsx                                                     |
+| **URL**           | https://centralpdet.renovacionterritorio.gov.co/wp-content/uploads/2022/01/MunicipiosPDET.xlsx |
+| **Fecha descarga**| 2026-05-10                                                              |
+| **Marco legal**   | Decreto Ley 893 de 2017                                                 |
+| **Registros**     | 170 municipios distribuidos en 16 subregiones PDET                      |
+
+### Archivos derivados
+- `MunicipiosPDET.xlsx` — descarga original sin modificar.
+- `pdet_municipios.csv` — extracción limpia (UTF-8), columnas:
+  `divipola` (5 dígitos, cero-padded), `municipio`, `departamento`,
+  `codigo_departamento` (2 dígitos), `subregion_pdet`.
+
+### Verificación de integridad
+- 170 / 170 códigos DIVIPOLA únicos.
+- 170 / 170 códigos PDET encontrados en `municipios_colombia.geojson`
+  (cruce contra DANE MGN2025, propiedad `mpio_cdpmp`): **0 faltantes**.
+- 16 subregiones PDET coinciden con el Decreto 893/2017.
+
+### Distribución por subregión
+| Subregión | Municipios |
+|---|---:|
+| ALTO PATÍA Y NORTE DEL CAUCA | 24 |
+| CUENCA DEL CAGUÁN Y PIEDEMONTE CAQUETEÑO | 17 |
+| MONTES DE MARÍA | 15 |
+| SIERRA NEVADA - PERIJÁ | 15 |
+| CHOCÓ | 14 |
+| BAJO CAUCA Y NORDESTE ANTIOQUEÑO | 13 |
+| MACARENA - GUAVIARE | 12 |
+| PACÍFICO Y FRONTERA NARIÑENSE | 11 |
+| PUTUMAYO | 9 |
+| CATATUMBO | 8 |
+| URABÁ ANTIOQUEÑO | 8 |
+| SUR DE BOLÍVAR | 7 |
+| SUR DE CÓRDOBA | 5 |
+| ARAUCA | 4 |
+| PACÍFICO MEDIO | 4 |
+| SUR DEL TOLIMA | 4 |
+| **Total** | **170** |
+
