@@ -12,7 +12,25 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:sites.research.google)",
       "Bash(curl -sSL -o data/raw/ms_buildings/dataset-links.csv \"https://minedbuildings.z5.web.core.windows.net/global-buildings/dataset-links.csv\")",
-      "WebSearch"
+      "WebSearch",
+      "Bash(grep -qE \"\\(Traceback|\\\\[done\\\\] ms|\\\\[OK\\\\] buildings_ms\\)\" data/raw/.load_ms.log)",
+      "Bash(tail -3 data/raw/.load_ms.log)",
+      "Bash(grep -cE '^\\\\s+\\\\[[0-9]+/232\\\\]' data/raw/.load_ms.log)",
+      "Bash(python -c \"from pymongo import MongoClient; print\\(MongoClient\\('mongodb://root:root@localhost:27017/?authSource=admin'\\).upme.buildings_ms.estimated_document_count\\(\\)\\)\")",
+      "Bash(rm -f data/processed/buildings_load_manifest.json)",
+      "Bash(python -u scripts/load_buildings.py --ms)",
+      "Bash(python -c \"from pymongo import MongoClient; print\\('buildings_ms count:', MongoClient\\('mongodb://root:root@localhost:27017/?authSource=admin'\\).upme.buildings_ms.estimated_document_count\\(\\)\\)\")",
+      "Bash(powershell.exe -Command \"Get-Process python -ErrorAction SilentlyContinue | Select-Object Id,StartTime,CPU | Format-Table\")",
+      "Bash(grep -qE \"\\(Traceback|\\\\[done\\\\] google|\\\\[OK\\\\] buildings_google\\)\" data/raw/.load_google.log)",
+      "Bash(grep -q \"buildings_google: ~0 documents\" data/raw/.load_google.log)",
+      "Bash(grep -cE '^\\\\s+\\\\[ *[0-9]+/8\\\\]' data/raw/.load_google.log)",
+      "Bash(python -c \"from pymongo import MongoClient; print\\(MongoClient\\('mongodb://root:root@localhost:27017/?authSource=admin'\\).upme.buildings_google.estimated_document_count\\(\\)\\)\")",
+      "Bash(tail -15 data/raw/.load_google.log)",
+      "Bash(python -c \"import sys; print\\(sys.version\\)\")",
+      "Bash(where pandoc *)",
+      "Bash(where wkhtmltopdf *)",
+      "Bash(powershell.exe -Command \"Get-Command msedge -ErrorAction SilentlyContinue | Select-Object Source; Test-Path 'C:\\\\Program Files \\(x86\\)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe'; Test-Path 'C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe'\")",
+      "Bash(powershell.exe -NoProfile -Command ' *)"
     ]
   }
 }
