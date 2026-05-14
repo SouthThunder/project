@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "upme://schema/results",
+  "title": "Per-municipality rooftop aggregation",
+  "description": "Materialized output of the analysis. One document per (divipola, source) pair so MS vs Google totals can be compared side by side.",
+  "type": "object",
+  "required": ["divipola", "source", "building_count", "total_rooftop_sqm", "computed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "_id":                { "bsonType": "objectId" },
+    "divipola":           { "type": "string", "pattern": "^[0-9]{5}$" },
+    "name":               { "type": "string" },
+    "department":         { "type": "string" },
+    "source":             { "enum": ["microsoft", "google", "tum"] },
+    "building_count":     { "type": "integer", "minimum": 0 },
+    "total_rooftop_sqm":  { "type": "number", "minimum": 0 },
+    "mean_area_sqm":      { "type": "number", "minimum": 0 },
+    "median_area_sqm":    { "type": "number", "minimum": 0 },
+    "min_confidence_used":{ "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+    "computed_at":        { "type": "string", "format": "date-time" }
+  }
+}
