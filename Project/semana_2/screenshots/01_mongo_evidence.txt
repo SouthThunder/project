@@ -1,0 +1,65 @@
+========================================================================
+ MongoDB — upme.municipalities  (Week 2 evidence)
+========================================================================
+
+  Total documents              : 170
+  is_pdet = true               : 170
+  Distinct departments         : 19
+  Distinct PDET subregiones    : 16
+
+  Indexes on municipalities:
+    - _id_                       keys={'_id': 1}  unique=False
+    - geometry_2dsphere          keys={'geometry': '2dsphere'}  unique=False
+    - divipola_1                 keys={'divipola': 1}  unique=True
+    - is_pdet_1                  keys={'is_pdet': 1}  unique=False
+
+========================================================================
+ Spatial query proof  ($geoIntersects)
+========================================================================
+
+  Query  : point inside Tumaco (lon=-78.690, lat=1.611)
+  Result : 1 hit(s)
+           {'divipola': '52835', 'name': 'SAN ANDRÉS DE TUMACO', 'department': 'NARIÑO', 'area_sqkm': 3617.458058, 'subregion_pdet': 'PACÍFICO Y FRONTERA NARIÑENSE'}
+
+  Query  : point inside Bogotá D.C. (NOT a PDET muni)
+  Result : 0 hit(s)   (expected 0 — proves PDET-only filter is honored)
+
+========================================================================
+ Top 10 PDET munis by area
+========================================================================
+
+  DIVIPOLA   Name                         Department                      km²
+  ---------- ---------------------------- -------------------- --------------
+  18756      SOLANO                       CAQUETÁ                    42,233.5
+  18753      SAN VICENTE DEL CAGUÁN       CAQUETÁ                    20,170.1
+  95001      SAN JOSÉ DEL GUAVIARE        GUAVIARE                   16,712.4
+  95015      CALAMAR                      GUAVIARE                   13,510.3
+  95200      MIRAFLORES                   GUAVIARE                   12,774.7
+  18150      CARTAGENA DEL CHAIRÁ         CAQUETÁ                    12,771.4
+  95025      EL RETORNO                   GUAVIARE                   12,405.9
+  50325      MAPIRIPÁN                    META                       11,917.5
+  86573      PUERTO LEGUÍZAMO             PUTUMAYO                   10,900.4
+  50350      LA MACARENA                  META                        8,108.5
+
+========================================================================
+ PDET subregion counts (16 expected per Decreto 893/2017)
+========================================================================
+
+   24  ALTO PATÍA Y NORTE DEL CAUCA
+   17  CUENCA DEL CAGUÁN Y PIEDEMONTE CAQUETEÑO
+   15  SIERRA NEVADA - PERIJÁ
+   15  MONTES DE MARÍA
+   14  CHOCÓ
+   13  BAJO CAUCA Y NORDESTE ANTIOQUEÑO
+   12  MACARENA - GUAVIARE
+   11  PACÍFICO Y FRONTERA NARIÑENSE
+    9  PUTUMAYO
+    8  URABÁ ANTIOQUEÑO
+    8  CATATUMBO
+    7  SUR DE BOLÍVAR
+    5  SUR DE CÓRDOBA
+    4  PACÍFICO MEDIO
+    4  SUR DEL TOLIMA
+    4  ARAUCA
+
+  TOTAL: 170 munis across 16 subregiones

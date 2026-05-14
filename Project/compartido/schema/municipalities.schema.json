@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "upme://schema/municipalities",
+  "title": "PDET municipality boundary",
+  "description": "One document per Colombian municipality. Geometry is a (Multi)Polygon in WGS84 (EPSG:4326), GeoJSON-encoded so MongoDB's 2dsphere index can serve $geoWithin / $geoIntersects.",
+  "type": "object",
+  "required": ["divipola", "name", "department", "is_pdet", "geometry"],
+  "additionalProperties": false,
+  "properties": {
+    "_id":            { "bsonType": "objectId" },
+    "divipola":       { "type": "string", "pattern": "^[0-9]{5}$", "description": "DANE 5-digit municipality code (DIVIPOLA)." },
+    "name":           { "type": "string" },
+    "department":     { "type": "string", "description": "DANE department name (e.g., Cauca, Nariño)." },
+    "department_code":{ "type": "string", "pattern": "^[0-9]{2}$" },
+    "is_pdet":        { "type": "boolean", "description": "True if this municipality is one of the 170 PDET territories per Decreto 893/2017." },
+    "area_sqkm":      { "type": "number", "minimum": 0, "description": "Polygon area in km2, computed in an equal-area projection at load time." },
+    "source":         { "type": "string", "description": "Provenance, e.g., 'DANE MGN2025'." },
+    "subregion_pdet": { "type": ["string", "null"], "description": "ART PDET subregion name (one of 16). Null for non-PDET munis." },
+    "loaded_at":      { "type": "string", "format": "date-time" },
+    "geometry": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type":        { "enum": ["Polygon", "MultiPolygon"] },
+        "coordinates": { "type": "array" }
+      }
+    }
+  }
+}

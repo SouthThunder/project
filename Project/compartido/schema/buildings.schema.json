@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "upme://schema/buildings",
+  "title": "Building footprint",
+  "description": "One document per building. Used by both buildings_ms and buildings_google collections - the source field disambiguates. Geometry is a Polygon in WGS84 GeoJSON. divipola is denormalized at load time via a one-shot spatial join so per-municipality aggregations are O(index lookup) instead of O(spatial scan).",
+  "type": "object",
+  "required": ["source", "geometry"],
+  "additionalProperties": false,
+  "properties": {
+    "_id":         { "bsonType": "objectId" },
+    "source":      { "enum": ["microsoft", "google", "tum"] },
+    "source_id":   { "type": "string", "description": "Original ID from upstream when available (e.g., Google plus_code or MS quadkey+row)." },
+    "divipola":    { "type": ["string", "null"], "pattern": "^[0-9]{5}$", "description": "Containing PDET municipality code, populated by the spatial-join ETL step. Null for buildings outside PDET territories." },
+    "confidence":  { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Model confidence; only Google ships this natively." },
+    "area_sqm":    { "type": "number", "minimum": 0, "description": "Polygon area in m2, computed in an equal-area projection at load time. Stored to avoid per-query reprojection." },
+    "loaded_at":   { "type": "string", "format": "date-time" },
+    "geometry": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type":        { "enum": ["Polygon"] },
+        "coordinates": { "type": "array" }
+      }
+    }
+  }
+}
