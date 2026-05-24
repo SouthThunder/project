@@ -65,8 +65,8 @@ synthetic Tumaco municipality from both Microsoft and Google sources.
 | 1    | Schema, indexes, smoke test                     | done   |
 | 2    | Real DANE MGN PDET polygons loaded              | done   |
 | 3    | Real MS + Google buildings loaded for PDET area | done   |
-| 4    | Reproducible analysis workflow + maps           | next   |
-| 5    | Final technical report                          | todo   |
+| 4    | Reproducible analysis workflow + maps           | done   |
+| 5    | Final technical report                          | next   |
 
 ## Week 2 deliverable
 
@@ -97,6 +97,21 @@ Buildings v3 (8 S2 cells, 2,691,812 PDET buildings) loaded into
 MONGO_URI="mongodb://localhost:27017/" python scripts/download_buildings.py
 MONGO_URI="mongodb://localhost:27017/" python scripts/load_buildings.py
 MONGO_URI="mongodb://localhost:27017/" python scripts/eda_buildings.py
+```
+
+## Week 4 deliverable
+
+> Reproducible Geospatial Analysis Workflow (Rooftop Count and Area Estimation).
+
+`scripts/analyze.py` aggregates building footprints per municipality,
+populates `upme.results` (334 documents), runs a Google confidence
+sensitivity sweep, and generates choropleth maps + comparison charts.
+Full write-up: [`docs/week4-report.md`](docs/week4-report.md).
+
+```bash
+# After Week 3 data is loaded:
+MONGO_URI="mongodb://localhost:27017/" python scripts/analyze.py
+# → upme.results (334 docs), 4 HTML maps, 4 PNG charts, 2 CSVs, report
 ```
 
 ## Tear down

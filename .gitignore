@@ -36,6 +36,8 @@ data/processed/buildings_load_manifest.json
 
 # PDF-export intermediate.
 docs/*.html
+# Keep Week 4 generated maps tracked.
+!docs/map_*.html
 
 # ---- Project: large raw downloads (regeneratable; see data/raw/SOURCES.md)
 # DANE MGN full GeoJSON (~261 MB). Reproducible from the ZIP per SOURCES.md.
