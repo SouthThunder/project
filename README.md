@@ -64,8 +64,8 @@ synthetic Tumaco municipality from both Microsoft and Google sources.
 | ---- | ----------------------------------------------- | ------ |
 | 1    | Schema, indexes, smoke test                     | done   |
 | 2    | Real DANE MGN PDET polygons loaded              | done   |
-| 3    | Real MS + Google buildings loaded for PDET area | next   |
-| 4    | Reproducible analysis workflow + maps           | todo   |
+| 3    | Real MS + Google buildings loaded for PDET area | done   |
+| 4    | Reproducible analysis workflow + maps           | next   |
 | 5    | Final technical report                          | todo   |
 
 ## Week 2 deliverable
@@ -80,6 +80,23 @@ list (Decreto 893/2017), validated, projected for area, and loaded into
 # After `docker compose up -d` and init.js:
 python scripts/validate_pdet.py      # emits data/processed/pdet_municipios.geojson
 python scripts/load_municipalities.py # upserts 170 docs + runs sanity queries
+```
+
+## Week 3 deliverable
+
+> Building Footprint Data Loading and Integration Report.
+
+Microsoft (232 quadkey tiles, 1,763,356 PDET buildings) and Google Open
+Buildings v3 (8 S2 cells, 2,691,812 PDET buildings) loaded into
+`upme.buildings_ms` and `upme.buildings_google`. Full write-up:
+[`docs/week3-report.md`](docs/week3-report.md). EDA:
+[`docs/week3-eda.md`](docs/week3-eda.md).
+
+```bash
+# After init.js and load_municipalities.py:
+MONGO_URI="mongodb://localhost:27017/" python scripts/download_buildings.py
+MONGO_URI="mongodb://localhost:27017/" python scripts/load_buildings.py
+MONGO_URI="mongodb://localhost:27017/" python scripts/eda_buildings.py
 ```
 
 ## Tear down
